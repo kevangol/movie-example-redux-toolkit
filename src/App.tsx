@@ -7,6 +7,15 @@ import {
   Image,
   Stack,
   Tooltip,
+  CloseButton,
+  AlertDescription,
+  AlertTitle,
+  AlertIcon,
+  Alert,
+  useDisclosure,
+  Button,
+  ScaleFade,
+  Fade,
 } from "@chakra-ui/react";
 import Header from "./components/Header";
 import MoviesList from "./utils/movies-bucket";
@@ -14,9 +23,42 @@ import { RxDoubleArrowRight } from "react-icons/rx";
 import { GoStar } from "react-icons/go";
 
 const App = () => {
+  const {
+    isOpen: isVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure({ defaultIsOpen: true });
   return (
     <Container maxW={"100%"} p={"0"}>
       <Header />
+      {isVisible && (
+        <Fade in={isVisible}>
+          <Alert
+            width={"fit-content"}
+            status="success"
+            variant={"solid"}
+            position={"fixed"}
+            bottom={"6"}
+            right={"5"}
+            zIndex={"1"}
+            transition={"all 4s ease"}
+            alignItems={"center"}
+            borderRadius={"10px"}
+          >
+            <AlertIcon />
+            Item add into watch later
+            <CloseButton
+              color={"#000"}
+              alignSelf="flex-start"
+              position="relative"
+              right={-1}
+              top={-1}
+              onClick={onClose}
+            />
+          </Alert>
+        </Fade>
+      )}
+
       <Container maxW={"70%"} p={"0"}>
         {MoviesList.map((_item: any, _identity: number) => (
           <Flex
@@ -30,7 +72,7 @@ const App = () => {
               <Box h={"inherit"} w={"100%"} overflow={"hidden"}>
                 <Image
                   src={_item.movieImage}
-                  transition={"all 1s ease"}
+                  transition={"all 2s ease"}
                   _hover={{ transform: "scale(1.5)" }}
                 />
               </Box>
@@ -125,6 +167,7 @@ const App = () => {
                   transition={"all 1s ease"}
                   cursor={"pointer"}
                   _hover={{ boxShadow: "dark-lg" }}
+                  onClick={onOpen}
                 >
                   <Text
                     textTransform={"uppercase"}
