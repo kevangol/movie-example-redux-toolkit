@@ -8,18 +8,18 @@ import Shazam1 from "../assets/Shazam-1.jpg";
 import Shazam2 from "../assets/Shazam-2.jpg";
 import Bholaa from "../assets/Bhola-movie.jpg";
 
-interface ReviewsModel {
+export interface ReviewsModel {
   rating: string;
   totalRatings: string;
 }
 
-interface CastModel {
+export interface CasteModel {
   imageLink: string;
   name: string;
   role: string;
 }
 
-interface MovieListModel {
+export interface MovieListModel {
   movieImage: string;
   movieName: string;
   releaseData: string;
@@ -27,8 +27,25 @@ interface MovieListModel {
   movieType: string;
   duration: string;
   language: Array<string>;
-  cast: Array<CastModel>;
+  cast: Array<CasteModel>;
   reviews: ReviewsModel;
+}
+
+export interface TitlesAndDescriptionsProps {
+  _item: MovieListModel;
+}
+
+export interface ReviewRatingProps {
+  _item: MovieListModel;
+}
+
+export interface CustomButtonProps {
+  onClick: () => void;
+  buttonTitle: string;
+}
+
+export interface CasteProfileProps {
+  _caste: CasteModel;
 }
 
 const MoviesList: MovieListModel[] = [

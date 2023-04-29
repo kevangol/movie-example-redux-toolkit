@@ -1,63 +1,16 @@
-import {
-  Flex,
-  Box,
-  Icon,
-  Text,
-  Container,
-  Image,
-  Stack,
-  Tooltip,
-  CloseButton,
-  AlertDescription,
-  AlertTitle,
-  AlertIcon,
-  Alert,
-  useDisclosure,
-  Button,
-  ScaleFade,
-  Fade,
-} from "@chakra-ui/react";
+import { Flex, Box, Icon, Container, Image, Stack } from "@chakra-ui/react";
 import Header from "./components/Header";
 import MoviesList from "./utils/movies-bucket";
 import { RxDoubleArrowRight } from "react-icons/rx";
-import { GoStar } from "react-icons/go";
+import CustomButton from "./components/CustomButton";
+import CasteProfile from "./components/CasteProfile";
+import ReviewRating from "./components/ReviewRating";
+import TitlesAndDescriptions from "./components/TitlesAndDescription";
 
-const App = () => {
-  const {
-    isOpen: isVisible,
-    onClose,
-    onOpen,
-  } = useDisclosure({ defaultIsOpen: true });
+const App = (): JSX.Element => {
   return (
     <Container maxW={"100%"} p={"0"}>
       <Header />
-      {isVisible && (
-        <Fade in={isVisible}>
-          <Alert
-            width={"fit-content"}
-            status="success"
-            variant={"solid"}
-            position={"fixed"}
-            bottom={"6"}
-            right={"5"}
-            zIndex={"1"}
-            transition={"all 4s ease"}
-            alignItems={"center"}
-            borderRadius={"10px"}
-          >
-            <AlertIcon />
-            Item add into watch later
-            <CloseButton
-              color={"#000"}
-              alignSelf="flex-start"
-              position="relative"
-              right={-1}
-              top={-1}
-              onClick={onClose}
-            />
-          </Alert>
-        </Fade>
-      )}
 
       <Container maxW={"70%"} p={"0"}>
         {MoviesList.map((_item: any, _identity: number) => (
@@ -78,34 +31,7 @@ const App = () => {
               </Box>
             </Box>
             <Box pl={"6"} pt="2">
-              <Text fontSize={"3xl"} fontWeight={"bold"} m={"0"}>
-                {_item.movieName}
-              </Text>
-
-              <Stack direction="row" align={"center"}>
-                <Text fontSize={"sm"} fontWeight={"semibold"}>
-                  CBFC: {_item.cbfc}
-                </Text>
-                <Text as={"span"}>|</Text>
-                <Text fontSize={"sm"} fontWeight={"bold"}>
-                  {_item.movieType}
-                </Text>
-                <Text as={"span"}>|</Text>
-                <Text fontSize={"sm"} fontWeight={"bold"}>
-                  {_item.duration}
-                </Text>
-              </Stack>
-              <Stack direction="row">
-                <Text fontSize={"sm"} fontWeight={"semibold"}>
-                  Available in
-                </Text>
-                <Text fontSize={"sm"} fontWeight={"semibold"}>
-                  {_item.language.join(", ")}
-                </Text>
-              </Stack>
-              <Text fontSize={"sm"} fontWeight={"bold"}>
-                Released on {_item.releaseData}
-              </Text>
+              <TitlesAndDescriptions _item={_item} />
 
               <Stack
                 direction="row"
@@ -114,26 +40,9 @@ const App = () => {
                 alignItems={"center"}
               >
                 {_item.cast.map((_caste: any, _index: number) => (
-                  <Tooltip label={`${_caste.name} as ${_caste.role}`}>
-                    <Box
-                      h="16"
-                      w={"16"}
-                      borderRadius={"100%"}
-                      overflow={"hidden"}
-                      border={"2px dashed #000"}
-                      bg="transparent"
-                      boxShadow={"dark-lg"}
-                      cursor={"pointer"}
-                    >
-                      <Image
-                        src={_caste.imageLink}
-                        alt={_caste.name}
-                        w={"100%"}
-                        objectFit={"cover"}
-                      />
-                    </Box>
-                  </Tooltip>
+                  <CasteProfile _caste={_caste} key={_caste.name} />
                 ))}
+
                 <Box>
                   <Icon
                     as={RxDoubleArrowRight}
@@ -143,47 +52,17 @@ const App = () => {
                   />
                 </Box>
               </Stack>
+
               <Flex mt="2" align={"center"} gap={"4rem"}>
-                <Flex align={"center"} justify={"center"} direction="column">
-                  <Stack direction={"row"} align={"center"}>
-                    <Icon as={GoStar} color={"#0B2447"} h={8} w={8} />
-                    <Text fontSize={"4xl"} fontWeight={"bold"}>
-                      {_item.reviews.rating}
-                    </Text>
-                  </Stack>
-                  <Stack>
-                    <Text fontWeight={"semibold"}>
-                      {_item.reviews.totalRatings} Ratings
-                    </Text>
-                  </Stack>
-                </Flex>
-                <Flex
-                  bgGradient="linear(to-l, #1C82AD, #13005A)"
-                  w={"200px"}
-                  h={"35px"}
-                  borderRadius={"10px"}
-                  align={"center"}
-                  justify={"center"}
-                  transition={"all 1s ease"}
-                  cursor={"pointer"}
-                  _hover={{ boxShadow: "dark-lg" }}
-                  onClick={onOpen}
-                >
-                  <Text
-                    textTransform={"uppercase"}
-                    fontWeight={"bold"}
-                    fontSize={"sm"}
-                    userSelect={"none"}
-                    color={"#fff"}
-                  >
-                    Add to Watch Later
-                  </Text>
-                </Flex>
+                <ReviewRating _item={_item} />
+                <CustomButton
+                  buttonTitle="add to watch later"
+                  onClick={() => null}
+                />
               </Flex>
             </Box>
           </Flex>
         ))}
-        <Flex></Flex>
       </Container>
     </Container>
   );
