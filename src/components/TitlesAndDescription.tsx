@@ -1,6 +1,6 @@
 import { Stack, Text } from "@chakra-ui/react";
 import { Fragment } from "react";
-import { TitlesAndDescriptionsProps } from "../utils/movies-bucket";
+import { TitlesAndDescriptionsProps } from "../Types/types";
 
 const TitlesAndDescriptions = ({ _item }: TitlesAndDescriptionsProps) => (
   <Fragment>

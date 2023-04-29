@@ -1,5 +1,5 @@
 import { Box, Image, Tooltip } from "@chakra-ui/react";
-import { CasteProfileProps } from "../utils/movies-bucket";
+import { CasteProfileProps } from "../Types/types";
 
 const CasteProfile = ({ _caste }: CasteProfileProps) => {
   return (

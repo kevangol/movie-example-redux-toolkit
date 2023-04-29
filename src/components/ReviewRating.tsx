@@ -1,6 +1,6 @@
 import { Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import { GoStar } from "react-icons/go";
-import { ReviewRatingProps } from "../utils/movies-bucket";
+import { ReviewRatingProps } from "../Types/types";
 
 const ReviewRating = ({ _item }: ReviewRatingProps): JSX.Element => (
   <Flex align={"center"} justify={"center"} direction="column">

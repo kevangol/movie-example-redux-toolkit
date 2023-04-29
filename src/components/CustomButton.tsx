@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { CustomButtonProps } from "../utils/movies-bucket";
+import { CustomButtonProps } from "../Types/types";
 
 const CustomButton = ({
   onClick,
