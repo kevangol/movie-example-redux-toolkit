@@ -32,8 +32,15 @@ export interface ReviewRatingProps {
 export interface CustomButtonProps {
   onClick: () => void;
   buttonTitle: string;
+  watchLater: boolean;
 }
 
 export interface CasteProfileProps {
   _caste: CasteModel;
+}
+
+export interface MediaDataType {
+  identity: number;
+  medianame: string;
+  image: string;
 }

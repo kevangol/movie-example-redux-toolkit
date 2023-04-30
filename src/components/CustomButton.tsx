@@ -4,10 +4,15 @@ import { CustomButtonProps } from "../Types/types";
 const CustomButton = ({
   onClick,
   buttonTitle,
+  watchLater,
 }: CustomButtonProps): JSX.Element => {
   return (
     <Flex
-      bgGradient="linear(to-l, #1C82AD, #13005A)"
+      bgGradient={
+        !watchLater
+          ? "linear(to-l, #1C82AD, #13005A)"
+          : "linear(to-l,#F9D949, #F45050)"
+      }
       w={"200px"}
       h={"35px"}
       borderRadius={"10px"}
@@ -25,7 +30,7 @@ const CustomButton = ({
         userSelect={"none"}
         color={"#fff"}
       >
-        {buttonTitle}
+        {watchLater ? "already in watch later" : buttonTitle}
       </Text>
     </Flex>
   );

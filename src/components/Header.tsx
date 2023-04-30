@@ -1,6 +1,7 @@
 import { Flex, Box, Icon, Badge, Text, Stack } from "@chakra-ui/react";
 
-import { MdOutlineNotificationsActive, MdShop } from "react-icons/md";
+import { MdWatchLater } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,20 +16,21 @@ const Header = () => {
       zIndex={"1"}
     >
       <Box w={"50%"} pl={"20px"}>
-        <Text as={"h1"} fontSize={"2xl"} color={"#fff"}>
-          BookShow
+        <Text as={"h1"} fontSize={"2xl"} color={"#fff"} cursor={"pointer"}>
+          <Link to={"/"}>BookShow</Link>
         </Text>
       </Box>
       <Flex w={"50%"} align={"center"} justify={"flex-end"} pr={"20px"}>
         <Stack direction={"row"} gap={"20px"}>
-          <Icon
-            as={MdOutlineNotificationsActive}
-            color={"#fff"}
-            h={7}
-            w={30}
-            transform={"rotate(30deg)"}
-          />
-          <Icon as={MdShop} color={"#fff"} w={30} h={7} />
+          <Link to={"/watch-later"}>
+            <Icon
+              as={MdWatchLater}
+              color={"#fff"}
+              w={30}
+              h={7}
+              cursor={"pointer"}
+            />
+          </Link>
         </Stack>
       </Flex>
     </Flex>

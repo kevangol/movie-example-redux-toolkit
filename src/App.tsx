@@ -6,16 +6,49 @@ import CustomButton from "./components/CustomButton";
 import CasteProfile from "./components/CasteProfile";
 import ReviewRating from "./components/ReviewRating";
 import TitlesAndDescriptions from "./components/TitlesAndDescription";
+import { useDispatch, useSelector } from "react-redux";
+import { MovieListModel } from "./Types/types";
+import { addToWatchLater } from "./redux/feature/watchLaterReducer";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const mediaDataSelector = useSelector(
+    (state: any) => state.watchLater.mediaData
+  );
+
+  const IdentifyWatchLater = (_item: MovieListModel) => {
+    return mediaDataSelector.some(
+      (_elements: any) => _elements.medianame === _item.movieName
+    );
+  };
+
+  const clickHandler = (_identity: number, _item: MovieListModel) => {
+    const dataAvailability: boolean = mediaDataSelector.some(
+      (_elements: any) => _elements.medianame === _item.movieName
+    );
+    if (!dataAvailability) {
+      toast.success(`${_item.movieName} is successfully add in watch later !`);
+      return dispatch(
+        addToWatchLater({
+          identity: (Math.random() * 1000) / 10 + 100,
+          medianame: _item.movieName,
+          image: _item.movieImage,
+        } as any)
+      );
+    }
+    return toast.info(`${_item.movieName} is already in watch later !`);
+  };
+
   return (
     <Container maxW={"100%"} p={"0"}>
       <Header />
-
       <Container maxW={"70%"} p={"0"}>
         {MoviesList.map((_item: any, _identity: number) => (
           <Flex
+            key={_item.movieName}
             mt={"5"}
+            mb={"5"}
             bg={"blackAlpha.100"}
             h={"300px"}
             borderRadius={"20px"}
@@ -57,7 +90,8 @@ const App = (): JSX.Element => {
                 <ReviewRating _item={_item} />
                 <CustomButton
                   buttonTitle="add to watch later"
-                  onClick={() => null}
+                  onClick={() => clickHandler(_identity, _item)}
+                  watchLater={IdentifyWatchLater(_item)}
                 />
               </Flex>
             </Box>
